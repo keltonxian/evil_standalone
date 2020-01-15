@@ -37,18 +37,32 @@ extern "C"
 {
     int cocos2dx_lua_loader(lua_State *L)
     {
+        // kelton: add the decrypt step "ENCRYPTCODE_FILE_EXT"
+        static const std::string ENCRYPTCODE_FILE_EXT    = ".evil";
         static const std::string BYTECODE_FILE_EXT    = ".luac";
         static const std::string NOT_BYTECODE_FILE_EXT = ".lua";
 
         std::string filename(luaL_checkstring(L, 1));
         size_t pos = filename.rfind(BYTECODE_FILE_EXT);
         if (pos != std::string::npos && pos == filename.length() - BYTECODE_FILE_EXT.length())
+        {
             filename = filename.substr(0, pos);
+        }
         else
         {
             pos = filename.rfind(NOT_BYTECODE_FILE_EXT);
             if (pos != std::string::npos && pos == filename.length() - NOT_BYTECODE_FILE_EXT.length())
+            {
                 filename = filename.substr(0, pos);
+            }
+            else
+            {
+                pos = filename.rfind(ENCRYPTCODE_FILE_EXT);
+                if (pos != std::string::npos && pos == filename.length() - ENCRYPTCODE_FILE_EXT.length())
+                {
+                    filename = filename.substr(0, pos);
+                }
+            }
         }
 
         pos = filename.find_first_of('.');
@@ -87,7 +101,17 @@ extern "C"
             {
                 pos = prefix.rfind(NOT_BYTECODE_FILE_EXT);
                 if (pos != std::string::npos && pos == prefix.length() - NOT_BYTECODE_FILE_EXT.length())
+                {
                     prefix = prefix.substr(0, pos);
+                }
+                else
+                {
+                    pos = prefix.rfind(ENCRYPTCODE_FILE_EXT);
+                    if (pos != std::string::npos && pos == prefix.length() - ENCRYPTCODE_FILE_EXT.length())
+                    {
+                        prefix = prefix.substr(0, pos);
+                    }
+                }
             }
             pos = prefix.find_first_of('?', 0);
             while (pos != std::string::npos)
@@ -111,11 +135,40 @@ extern "C"
                 }
                 else
                 {
-                    chunkName = prefix;
+                    chunkName = prefix + ENCRYPTCODE_FILE_EXT;
                     if (utils->isFileExist(chunkName)) // && !utils->isDirectoryExist(chunkName))
                     {
                         chunk = utils->getDataFromFile(chunkName);
+                        //==============
+                        unsigned char* chunkBytes = chunk.getBytes();
+                        size_t chunkSize = chunk.getSize();
+                        const char *key = "471028";
+                        size_t kindex = 0;
+                        size_t keylen = strlen(key);
+                        for (int i=0; i<chunkSize; i++)
+                        {
+                            chunkBytes[i] ^= key[kindex];
+                            if (++kindex >= keylen) {
+                                kindex = 0;
+                            }
+                            //                        printf("==ci[%c]\n", chunk[i]);
+                            //                        for (int j = 0; j < strlen(key); j++) {
+                            //                            printf("kj[%c]\n", key[j]);
+                            //                            codeBuffer[i] ^= key[j];
+                            //                        }
+                        }
+                        //                    printf("====[%s]\n", chunk);
+                        //==============
                         break;
+                    }
+                    else
+                    {
+                        chunkName = prefix;
+                        if (utils->isFileExist(chunkName)) // && !utils->isDirectoryExist(chunkName))
+                        {
+                            chunk = utils->getDataFromFile(chunkName);
+                            break;
+                        }
                     }
                 }
             }

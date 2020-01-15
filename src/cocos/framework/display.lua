@@ -28,8 +28,8 @@ local director = cc.Director:getInstance()
 local view = director:getOpenGLView()
 
 if not view then
-    local width = 960
-    local height = 640
+    local width = 640
+    local height = 960
     if CC_DESIGN_RESOLUTION then
         if CC_DESIGN_RESOLUTION.width then
             width = CC_DESIGN_RESOLUTION.width
@@ -38,7 +38,7 @@ if not view then
             height = CC_DESIGN_RESOLUTION.height
         end
     end
-    view = cc.GLViewImpl:createWithRect("Cocos2d-Lua", cc.rect(0, 0, width, height))
+    view = cc.GLViewImpl:createWithRect("梦想召唤师", cc.rect(0, 0, width, height))
     director:setOpenGLView(view)
 end
 

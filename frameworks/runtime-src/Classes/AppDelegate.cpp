@@ -34,6 +34,10 @@
 using namespace cocos2d::experimental;
 #endif
 
+#include "auto/lua_evilclass_auto.hpp"
+#include "auto/lua_layersocket_auto.hpp"
+#include "auto/lua_dragonbones_auto.hpp"
+
 USING_NS_CC;
 using namespace std;
 
@@ -88,8 +92,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     stack->setXXTEAKeyAndSign("2dxLua", strlen("2dxLua"), "XXTEA", strlen("XXTEA"));
 
     //register custom function
-    //LuaStack* stack = engine->getLuaStack();
-    //register_custom_function(stack->getLuaState());
+    register_all_evilclass(stack->getLuaState());
+    register_all_layersocket(stack->getLuaState());
+    register_all_dragonbones(stack->getLuaState());
     
 #if CC_64BITS
     FileUtils::getInstance()->addSearchPath("src/64bit");

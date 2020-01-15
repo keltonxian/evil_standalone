@@ -177,6 +177,8 @@ private:
     //! The version of downloaded resources.
     std::string _version;
     
+    bool _isSkipCheckVersion;
+    
     std::string _packageUrl;
     std::string _versionFileUrl;
     

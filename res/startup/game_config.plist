@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CPID</key>
+	<integer>3</integer>
+	<key>CHANNEL_VER</key>
+	<integer>4</integer>
+	<key>VER_UC</key>
+	<integer>7</integer>
+	<key>VER_LJSDK</key>
+	<integer>6</integer>
+	<key>VER_ANYSDK_NO_LOGIN</key>
+	<integer>5</integer>
+	<key>VER_APAY</key>
+	<integer>4</integer>
+	<key>VER_ANYSDK</key>
+	<integer>3</integer>
+	<key>VER_APAY_deprecated</key>
+	<integer>2</integer>
+	<key>VER_APPSTORE</key>
+	<integer>1</integer>
+	<key>IP</key>
+	<string>192.168.0.247</string>
+</dict>
+</plist>

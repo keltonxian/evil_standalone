@@ -64,6 +64,7 @@ AssetsManager::AssetsManager(const char* packageUrl/* =nullptr */, const char* v
 , _isDownloading(false)
 , _shouldDeleteDelegateWhenExit(false)
 {
+    _isSkipCheckVersion = (_versionFileUrl.empty() ? true : false);
     checkStoragePath();
     // convert downloader error code to AssetsManager::ErrorCode
     _downloader->onTaskError = [this](const DownloadTask& /*task*/,
@@ -87,11 +88,11 @@ AssetsManager::AssetsManager(const char* packageUrl/* =nullptr */, const char* v
                                          int64_t totalBytesReceived,
                                          int64_t totalBytesExpected)
     {
-        if(FileUtils::getInstance()->getFileExtension(task.requestURL) != ".zip")
-        {
-            // get version progress don't report
-            return;
-        }
+//        if(FileUtils::getInstance()->getFileExtension(task.requestURL) != ".zip")
+//        {
+//            // get version progress don't report
+//            return;
+//        }
         
         if (nullptr == _delegate)
         {
@@ -129,7 +130,7 @@ AssetsManager::AssetsManager(const char* packageUrl/* =nullptr */, const char* v
         // 2. Package should be a zip file.
         if (_versionFileUrl.empty()
             || _packageUrl.empty()
-            || FileUtils::getInstance()->getFileExtension(_packageUrl) != ".zip"
+//            || FileUtils::getInstance()->getFileExtension(_packageUrl) != ".zip"
             )
         {
             CCLOG("no version file url, or no package url, or the package is not a zip file");
@@ -196,13 +197,26 @@ std::string AssetsManager::keyOfDownloadedVersion() const
 
 bool AssetsManager::checkUpdate()
 {
-    if (_versionFileUrl.size() == 0 || _isDownloading) return false;
-    
-    // Clear _version before assign new value.
-    _version.clear();
-    _isDownloading = true;
-    _downloader->createDownloadDataTask(_versionFileUrl);
-    return true;
+    if (false == _isSkipCheckVersion)
+    {
+        if (_versionFileUrl.size() == 0 || _isDownloading) return false;
+        
+        // Clear _version before assign new value.
+        _version.clear();
+        _isDownloading = true;
+        _downloader->createDownloadDataTask(_versionFileUrl);
+        return true;
+    }
+    else
+    {
+        if (_isDownloading) return false;
+        
+        _isDownloading = true;
+        // start download;
+        const string outFileName = _storagePath + TEMP_PACKAGE_FILE_NAME;
+        _downloader->createDownloadFileTask(_packageUrl, outFileName);
+        return true;
+    }
 }
 
 void AssetsManager::downloadAndUncompress()
