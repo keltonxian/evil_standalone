@@ -1,0 +1,18 @@
+<TextureAtlas name="s_502_1" imagePath="s_502_1_texture.png">
+ <SubTexture name="s_502_1_1.png" x="552" y="516" width="182" height="256"/>
+ <SubTexture name="s_502_1_2.png" x="184" y="258" width="182" height="256"/>
+ <SubTexture name="s_502_1_3.png" x="0" y="516" width="182" height="256"/>
+ <SubTexture name="s_502_1_4.png" x="368" y="516" width="182" height="256"/>
+ <SubTexture name="s_502_1_5.png" x="0" y="774" width="182" height="256"/>
+ <SubTexture name="s_502_1_6.png" x="184" y="516" width="182" height="256"/>
+ <SubTexture name="s_502_1_7.png" x="0" y="258" width="182" height="256"/>
+ <SubTexture name="s_502_1_8.png" x="736" y="516" width="182" height="256"/>
+ <SubTexture name="s_502_1_9.png" x="736" y="258" width="182" height="256"/>
+ <SubTexture name="s_502_1_10.png" x="184" y="0" width="182" height="256"/>
+ <SubTexture name="s_502_1_11.png" x="552" y="0" width="182" height="256"/>
+ <SubTexture name="s_502_1_12.png" x="368" y="0" width="182" height="256"/>
+ <SubTexture name="s_502_1_13.png" x="368" y="258" width="182" height="256"/>
+ <SubTexture name="s_502_1_14.png" x="0" y="0" width="182" height="256"/>
+ <SubTexture name="s_502_1_15.png" x="736" y="0" width="182" height="256"/>
+ <SubTexture name="s_502_1_16.png" x="552" y="258" width="182" height="256"/>
+</TextureAtlas>

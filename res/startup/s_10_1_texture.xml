@@ -1,0 +1,16 @@
+<TextureAtlas name="s_10_1" imagePath="s_10_1_texture.png">
+ <SubTexture name="s_10_1_1.png" x="564" y="0" width="280" height="280"/>
+ <SubTexture name="s_10_1_2.png" x="846" y="0" width="280" height="280"/>
+ <SubTexture name="s_10_1_3.png" x="1128" y="282" width="280" height="280"/>
+ <SubTexture name="s_10_1_4.png" x="1692" y="0" width="280" height="280"/>
+ <SubTexture name="s_10_1_5.png" x="282" y="0" width="280" height="280"/>
+ <SubTexture name="s_10_1_6.png" x="1692" y="282" width="280" height="280"/>
+ <SubTexture name="s_10_1_7.png" x="564" y="282" width="280" height="280"/>
+ <SubTexture name="s_10_1_8.png" x="0" y="282" width="280" height="280"/>
+ <SubTexture name="s_10_1_9.png" x="1410" y="0" width="280" height="280"/>
+ <SubTexture name="s_10_1_10.png" x="0" y="0" width="280" height="280"/>
+ <SubTexture name="s_10_1_11.png" x="1128" y="0" width="280" height="280"/>
+ <SubTexture name="s_10_1_12.png" x="282" y="282" width="280" height="280"/>
+ <SubTexture name="s_10_1_13.png" x="846" y="282" width="280" height="280"/>
+ <SubTexture name="s_10_1_14.png" x="1410" y="282" width="280" height="280"/>
+</TextureAtlas>

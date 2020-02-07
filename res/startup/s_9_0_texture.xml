@@ -1,0 +1,10 @@
+<TextureAtlas name="s_9_0" imagePath="s_9_0_texture.png">
+ <SubTexture name="s_9_0_1.png" x="385" y="0" width="75" height="150"/>
+ <SubTexture name="s_9_0_2.png" x="77" y="152" width="75" height="150"/>
+ <SubTexture name="s_9_0_3.png" x="231" y="0" width="75" height="150"/>
+ <SubTexture name="s_9_0_4.png" x="0" y="152" width="75" height="150"/>
+ <SubTexture name="s_9_0_5.png" x="77" y="0" width="75" height="150"/>
+ <SubTexture name="s_9_0_6.png" x="308" y="0" width="75" height="150"/>
+ <SubTexture name="s_9_0_7.png" x="154" y="0" width="75" height="150"/>
+ <SubTexture name="s_9_0_8.png" x="0" y="0" width="75" height="150"/>
+</TextureAtlas>

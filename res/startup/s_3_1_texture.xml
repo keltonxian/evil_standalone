@@ -1,0 +1,17 @@
+<TextureAtlas name="s_3_1" imagePath="s_3_1_texture.png">
+ <SubTexture name="s_3_1_1.png" x="0" y="704" width="350" height="350"/>
+ <SubTexture name="s_3_1_2.png" x="1056" y="0" width="350" height="350"/>
+ <SubTexture name="s_3_1_3.png" x="352" y="704" width="350" height="350"/>
+ <SubTexture name="s_3_1_4.png" x="704" y="0" width="350" height="350"/>
+ <SubTexture name="s_3_1_5.png" x="1408" y="704" width="350" height="350"/>
+ <SubTexture name="s_3_1_6.png" x="704" y="704" width="350" height="350"/>
+ <SubTexture name="s_3_1_7.png" x="1408" y="0" width="350" height="350"/>
+ <SubTexture name="s_3_1_8.png" x="352" y="0" width="350" height="350"/>
+ <SubTexture name="s_3_1_9.png" x="1408" y="352" width="350" height="350"/>
+ <SubTexture name="s_3_1_10.png" x="352" y="352" width="350" height="350"/>
+ <SubTexture name="s_3_1_11.png" x="0" y="0" width="350" height="350"/>
+ <SubTexture name="s_3_1_12.png" x="0" y="352" width="350" height="350"/>
+ <SubTexture name="s_3_1_13.png" x="704" y="352" width="350" height="350"/>
+ <SubTexture name="s_3_1_14.png" x="1056" y="352" width="350" height="350"/>
+ <SubTexture name="s_3_1_15.png" x="1056" y="704" width="350" height="350"/>
+</TextureAtlas>

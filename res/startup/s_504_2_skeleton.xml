@@ -1,0 +1,306 @@
+<dragonBones name="s_504_2" frameRate="10" version="2.3">
+ <armature name="s_504_2">
+  <bone name="s_504_2_1.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_2.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_3.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_4.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_5.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_6.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_7.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_8.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_9.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_10.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_11.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_12.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_13.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_14.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_15.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_16.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_17.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_18.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_19.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="s_504_2_20.png">
+   <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="s_504_2_1.png" parent="s_504_2_1.png" z="0">
+    <display name="s_504_2_1.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_2.png" parent="s_504_2_2.png" z="1">
+    <display name="s_504_2_2.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_3.png" parent="s_504_2_3.png" z="2">
+    <display name="s_504_2_3.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_4.png" parent="s_504_2_4.png" z="3">
+    <display name="s_504_2_4.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_5.png" parent="s_504_2_5.png" z="4">
+    <display name="s_504_2_5.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_6.png" parent="s_504_2_6.png" z="5">
+    <display name="s_504_2_6.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_7.png" parent="s_504_2_7.png" z="6">
+    <display name="s_504_2_7.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_8.png" parent="s_504_2_8.png" z="7">
+    <display name="s_504_2_8.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_9.png" parent="s_504_2_9.png" z="8">
+    <display name="s_504_2_9.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_10.png" parent="s_504_2_10.png" z="9">
+    <display name="s_504_2_10.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_11.png" parent="s_504_2_11.png" z="10">
+    <display name="s_504_2_11.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_12.png" parent="s_504_2_12.png" z="11">
+    <display name="s_504_2_12.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_13.png" parent="s_504_2_13.png" z="12">
+    <display name="s_504_2_13.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_14.png" parent="s_504_2_14.png" z="13">
+    <display name="s_504_2_14.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_15.png" parent="s_504_2_15.png" z="14">
+    <display name="s_504_2_15.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_16.png" parent="s_504_2_16.png" z="15">
+    <display name="s_504_2_16.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_17.png" parent="s_504_2_17.png" z="16">
+    <display name="s_504_2_17.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_18.png" parent="s_504_2_18.png" z="17">
+    <display name="s_504_2_18.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_19.png" parent="s_504_2_19.png" z="18">
+    <display name="s_504_2_19.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+   <slot name="s_504_2_20.png" parent="s_504_2_20.png" z="19">
+    <display name="s_504_2_20.png" type="image">
+     <transform x="-91" y="-128" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="s_504_2" fadeInTime="0" duration="21" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="s_504_2_1.png" scale="1" offset="0">
+    <frame z="0" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="19" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_2.png" scale="1" offset="0">
+    <frame duration="1" displayIndex="-1"/>
+    <frame z="1" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="18" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_3.png" scale="1" offset="0">
+    <frame duration="2" displayIndex="-1"/>
+    <frame z="2" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="17" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_4.png" scale="1" offset="0">
+    <frame duration="3" displayIndex="-1"/>
+    <frame z="3" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="16" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_5.png" scale="1" offset="0">
+    <frame duration="4" displayIndex="-1"/>
+    <frame z="4" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="15" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_6.png" scale="1" offset="0">
+    <frame duration="5" displayIndex="-1"/>
+    <frame z="5" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="14" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_7.png" scale="1" offset="0">
+    <frame duration="6" displayIndex="-1"/>
+    <frame z="6" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="13" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_8.png" scale="1" offset="0">
+    <frame duration="7" displayIndex="-1"/>
+    <frame z="7" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="12" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_9.png" scale="1" offset="0">
+    <frame duration="8" displayIndex="-1"/>
+    <frame z="8" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="11" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_10.png" scale="1" offset="0">
+    <frame duration="9" displayIndex="-1"/>
+    <frame z="9" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="10" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_11.png" scale="1" offset="0">
+    <frame duration="10" displayIndex="-1"/>
+    <frame z="10" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="9" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_12.png" scale="1" offset="0">
+    <frame duration="11" displayIndex="-1"/>
+    <frame z="11" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="8" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_13.png" scale="1" offset="0">
+    <frame duration="12" displayIndex="-1"/>
+    <frame z="12" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="7" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_14.png" scale="1" offset="0">
+    <frame duration="13" displayIndex="-1"/>
+    <frame z="13" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="6" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_15.png" scale="1" offset="0">
+    <frame duration="14" displayIndex="-1"/>
+    <frame z="14" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="5" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_16.png" scale="1" offset="0">
+    <frame duration="15" displayIndex="-1"/>
+    <frame z="15" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="4" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_17.png" scale="1" offset="0">
+    <frame duration="16" displayIndex="-1"/>
+    <frame z="16" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="3" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_18.png" scale="1" offset="0">
+    <frame duration="17" displayIndex="-1"/>
+    <frame z="17" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="2" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_19.png" scale="1" offset="0">
+    <frame duration="18" displayIndex="-1"/>
+    <frame z="18" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame duration="1" displayIndex="-1"/>
+   </timeline>
+   <timeline name="s_504_2_20.png" scale="1" offset="0">
+    <frame duration="19" displayIndex="-1"/>
+    <frame z="19" duration="2">
+     <transform x="0" y="-0.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+</dragonBones>

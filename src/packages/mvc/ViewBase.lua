@@ -57,6 +57,7 @@ function ViewBase:createResourceBinding(binding)
     end
 end
 
+--[[
 function ViewBase:showWithScene(transition, time, more)
     self:setVisible(true)
     local scene = display.newScene(self.name_)
@@ -64,5 +65,6 @@ function ViewBase:showWithScene(transition, time, more)
     display.runScene(scene, transition, time, more)
     return self
 end
+--]]
 
 return ViewBase

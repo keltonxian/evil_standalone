@@ -4,17 +4,8 @@ cc.FileUtils:getInstance():setPopupNotify(false)
 require "config"
 require "cocos.init"
 
-function kdebug(...)
-	printLog("DBEUG", ...)
-end
-
-function kerror(...)
-	printLog("ERROR", ...)
-end
-
 local function main()
     math.randomseed(os.time())
-    --require("app.MyApp"):create():run()
     require("version"):create():run()
 end
 

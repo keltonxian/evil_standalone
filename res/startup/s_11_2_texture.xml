@@ -1,0 +1,17 @@
+<TextureAtlas name="s_11_2" imagePath="s_11_2_texture.png">
+ <SubTexture name="s_11_2_1.png" x="1410" y="0" width="280" height="300"/>
+ <SubTexture name="s_11_2_2.png" x="1410" y="302" width="280" height="300"/>
+ <SubTexture name="s_11_2_3.png" x="564" y="302" width="280" height="300"/>
+ <SubTexture name="s_11_2_4.png" x="1692" y="0" width="280" height="300"/>
+ <SubTexture name="s_11_2_5.png" x="1128" y="0" width="280" height="300"/>
+ <SubTexture name="s_11_2_6.png" x="0" y="604" width="280" height="300"/>
+ <SubTexture name="s_11_2_7.png" x="846" y="302" width="280" height="300"/>
+ <SubTexture name="s_11_2_8.png" x="1692" y="302" width="280" height="300"/>
+ <SubTexture name="s_11_2_9.png" x="564" y="0" width="280" height="300"/>
+ <SubTexture name="s_11_2_10.png" x="282" y="302" width="280" height="300"/>
+ <SubTexture name="s_11_2_11.png" x="0" y="0" width="280" height="300"/>
+ <SubTexture name="s_11_2_12.png" x="282" y="0" width="280" height="300"/>
+ <SubTexture name="s_11_2_13.png" x="846" y="0" width="280" height="300"/>
+ <SubTexture name="s_11_2_14.png" x="0" y="302" width="280" height="300"/>
+ <SubTexture name="s_11_2_15.png" x="1128" y="302" width="280" height="300"/>
+</TextureAtlas>

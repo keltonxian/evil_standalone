@@ -1,31 +1,16 @@
+local Util = require("app.base.Util")
+local Net = require("app.base.Net")
+local Info = require("app.base.Info")
 
 local Version = class("Version")
 
-local Util = require("app.Util")
+-- see in v_update_res and game.lua check_ip
+local ALWAYS_UPDATE = true
 
-KEY_PATCH_INDEX = 'unzip_ep_index' -- see in v_update_res and game.lua check_ip
-KEY_COPY_ASSETS_INDEX = 'copy_assets_index'
-KEY_LOGIC_VER = 'core_logic_ver'
-KEY_GAME_VER = 'core_game_ver'
+local SKIP_UPDATE = false
+local RES_DEBUG = true -- use res(include lua) in res/temp
 
-SHOW_VERSION = 00001
-CLIENT_VERSION = 00001
-CLIENT_PATCH_CONSTANT = 1 -- for game.lua layer_debug delete_res
-CLIENT_PATCH = CLIENT_PATCH_CONSTANT
-DEBUG_MODE = false
-ALWAYS_UPDATE = true
-RES_DEBUG = false -- use res(include lua) in res/temp
-
-IP_ADDR = nil;
-SKIP_UPDATE = false;
-
--- also define at game.lua
--- define at game_initialize
-CPID               = 0;
-CHANNEL_VER        = 0;
-VER_APPSTORE       = 1;
-
-function Version:onCreate()
+function Version:ctor(...)
 	self._btnRetry = nil
 	self._btnNext = nil
 	self._btnDelRes = nil
@@ -44,30 +29,7 @@ function Version:printSearchPath()
 end
 
 function Version:getSavePath()
-	local path = cc.FileUtils:getInstance():getWritablePath() .. "evil/"
-	--local path = cc.FileUtils:getInstance():getWritablePath()
-	return path
-end
-
-function Version:getLang()
-	return 1
-	--[[
-	local platform = cc.Application:getInstance():getTargetPlatform();
-	if platform == cc.PLATFORM_OS_IPHONE or platform == cc.PLATFORM_OS_IPAD then
-		local args = {}; 
-		local luaoc = require "luaoc";
-		local class_name = "SysTool";
-		local ok, ret = luaoc.callStaticMethod(class_name, "getLanguage", args);
-		if true == ok then
-			return ret;
-		end
-	elseif platform == cc.PLATFORM_OS_ANDROID then
-		return 1;
-	else
-		return 1;
-	end
-	return 1;
-	]]--
+	return Util.getSavePath()
 end
 
 function Version:setTip(tip, no_enter)
@@ -83,7 +45,7 @@ end
 
 function Version:updateByPath(ip_res, ip_version, callback)
 	local save_path = self:getSavePath()
-	--kdebug('save_path: ', save_path);
+	--Util.log('save_path: ', save_path);
 
 	local isSkipCheckVersion = string.len(ip_version or "") == 0
 
@@ -93,19 +55,19 @@ function Version:updateByPath(ip_res, ip_version, callback)
 	local amanager = nil
 
 	local function on_success(flag)
-		kdebug("success")
+		Util.log("success")
 		amanager:removeFromParent(true)
 		callback(flag)
 	end
 
 	local function on_error(error_code)
-		kerror("error_code: ", error_code)
+		Util.err("error_code: ", error_code)
 		if error_code == cc.ASSETSMANAGER_CREATE_FILE then
-			kerror("fail create file")
+			Util.err("fail create file")
 			self:setTip(string.format("创建文件失败"))
 			item:setVisible(true)
 		elseif error_code == cc.ASSETSMANAGER_NETWORK then
-			kerror("no network")
+			Util.err("no network")
 			if true == isSkipCheckVersion then
 				on_success(error_code) -- set a flag true means download res is done
 			else
@@ -113,10 +75,10 @@ function Version:updateByPath(ip_res, ip_version, callback)
 				item:setVisible(true)
 			end
 		elseif error_code == cc.ASSETSMANAGER_NO_NEW_VERSION then
-			kdebug("no new version")
+			Util.log("no new version")
 			on_success(error_code) -- set a flag true means download res is done
 		elseif error_code == cc.ASSETSMANAGER_UNCOMPRESS then
-			kerror("fail uncompress")
+			Util.err("fail uncompress")
 			self:setTip(string.format("解压失败"))
 			item:setVisible(true)
 		end
@@ -126,7 +88,7 @@ function Version:updateByPath(ip_res, ip_version, callback)
 		if nil == percent then
 			return
 		end
-		kdebug("percent[%f]", percent)
+		Util.log("percent[%f]", percent)
 		progress:setPercentage(percent)
 		local x = progress:getPositionX()
 		local s1 = progress:getContentSize()
@@ -185,8 +147,8 @@ function Version:updateSlist()
 	local dic = utils:getValueMapFromFile("game_config.plist")
 	local ip = dic["IP"]
 	local ip_version = string.format("http://%s:8010/evil/version.slist", ip)
-	local ip_res = string.format("http://%s:8010/evil/patch.slist?version=%d&flag=%d", ip, CLIENT_VERSION, flag)
-	kdebug("download slist version[%s] file[%s]", ip_version, ip_res)
+	local ip_res = string.format("http://%s:8010/evil/patch.slist?version=%d&flag=%d", ip, Util.CLIENT_VERSION, flag)
+	Util.log("download slist version[%s] file[%s]", ip_version, ip_res)
 	self:updateByPath(ip_res, ip_version, function(...)
 		self:cbSlist(...)
 	end)
@@ -216,7 +178,6 @@ function Version:cbSlist()
 		local lines = Util.csplit(data, "[\n\r]")
 		for i = 1, #lines do
 			--print('line, i: ', i, lines[i]);
-			Util = require("app.Util")
 			local l = Util.csplit(lines[i], ",")
 			-- flag > 0 normal server, == 0 debug server
 			local ld = { sid = l[1], ip = l[2], flag = l[3], name = l[4], 
@@ -255,25 +216,25 @@ function Version:cbSlist()
 		end
 	end
 	mark = list[index].ip
-	server_list = list
-	IP_ADDR = mark
+	Net:setServerList(list)
+	Info.IP_ADDR = mark
 	--http://host:8080/s/patch.core?game_ver=1025&logic_ver=1029
-	--version_update_logic(IP_ADDR)
-	--print('IP_ADDR: ', IP_ADDR)
+	--version_update_logic(Info.IP_ADDR)
+	--print('Info.IP_ADDR: ', Info.IP_ADDR)
 	self:setTip(string.format("成功"), true)
 	self:updateCore()
 end
 
 function Version:updateCore()
 	self:setTip(string.format("更新逻辑..."))
-	local ip = IP_ADDR
+	local ip = Info.IP_ADDR
 	local user = cc.UserDefault:getInstance()
-	local logic_ver = user:getIntegerForKey(KEY_LOGIC_VER)
-	local game_ver = user:getIntegerForKey(KEY_GAME_VER)
+	local logic_ver = user:getIntegerForKey(Util.KEY_LOGIC_VER)
+	local game_ver = user:getIntegerForKey(Util.KEY_GAME_VER)
 	--http://host:8080/s/patch.core?game_ver=1025&logic_ver=1029
 	local ip_version = string.format("http://%s:8010/evil/version.core", ip)
 	local ip_res = string.format("http://%s:8010/evil/patch.core?game_ver=%d&logic_ver=%d", ip, game_ver, logic_ver)
-	kdebug("download core version[%s] file[%s]", ip_version, ip_res)
+	Util.log("download core version[%s] file[%s]", ip_version, ip_res)
 	self:updateByPath(ip_res, ip_version, function(...)
 		self:cbCore(...)
 	end)
@@ -335,18 +296,18 @@ function Version:cbCore(flag)
 end
 
 function Version:updateRes()
-	local ip = IP_ADDR
+	local ip = Info.IP_ADDR
 	local user = cc.UserDefault:getInstance()
-	local mark = user:getIntegerForKey(KEY_PATCH_INDEX)
+	local mark = user:getIntegerForKey(Util.KEY_PATCH_INDEX)
 	if 0 == mark then
-		mark = CLIENT_PATCH
-		user:setIntegerForKey(KEY_PATCH_INDEX, tonumber(mark))
+		mark = Util.CLIENT_PATCH
+		user:setIntegerForKey(Util.KEY_PATCH_INDEX, tonumber(mark))
 	end
 	mark = mark + 1
 
 	local ip_res = string.format("http://%s:8010/evil/res/patch/p%d.ep", ip, mark)
 	--print('patch ip_res: ', ip_res)
-	kdebug("download patch file[%s]", ip_res)
+	Util.log("download patch file[%s]", ip_res)
 	self:setTip(string.format("更新资源[%d]...", mark))
 	self:updateByPath(ip_res, "", function(...)
 		self:cbRes(...)
@@ -358,17 +319,141 @@ function Version:cbRes(flag)
 		self:setTip(string.format("更新资源 完毕"))
 		if true == ALWAYS_UPDATE then
 			local user = cc.UserDefault:getInstance()
-			user:setIntegerForKey(KEY_PATCH_INDEX, tonumber(CLIENT_PATCH))
+			user:setIntegerForKey(Util.KEY_PATCH_INDEX, tonumber(Util.CLIENT_PATCH))
 		end
 		self:updateDone()
 		return
 	end
 	local user = cc.UserDefault:getInstance()
-	local mark = user:getIntegerForKey(KEY_PATCH_INDEX)
+	local mark = user:getIntegerForKey(Util.KEY_PATCH_INDEX)
 	mark = mark + 1
-	user:setIntegerForKey(KEY_PATCH_INDEX, mark)
+	user:setIntegerForKey(Util.KEY_PATCH_INDEX, mark)
 	self:setTip(string.format("更新资源[%d] 成功", mark))
 	self:updateRes()
+end
+
+function Version:processData()
+	-- TODO: handle error case
+	local platform = cc.Application:getInstance():getTargetPlatform()
+	if platform == cc.PLATFORM_OS_IPHONE or platform == cc.PLATFORM_OS_IPAD or platform == cc.PLATFORM_OS_MAC then
+		local files = {}
+		local path = KUtils:getResourcePath() .. '/patch/'
+		local list = KUtils:dfsFolder(path, 0)
+		print('path, #list:', path, #list)
+		for i = 1, #list do
+			local fname = list[i]
+			local n = string.find(fname, ".ep")
+			if n+2 == string.len(fname) then
+				local p = path .. fname
+				table.insert(files, { path = p, fname = fname })
+			end
+		end
+		self:unzipEp(files)
+	elseif platform == cc.PLATFORM_OS_ANDROID then
+		local user = cc.UserDefault:getInstance()
+		local mark = user:getIntegerForKey(Util.KEY_COPY_ASSETS_INDEX)
+		if 1 == mark then
+			self:cbAndroidEp()
+			return
+		end
+		local path = cc.FileUtils:getInstance():getWritablePath() .. 'a_local_ep'
+		local ret = KUtils:createDirByPath(path)
+		if 0 ~= ret then
+			print('BUG create a_local_ep dir fail')
+		end
+		local args = { 
+			path, handler(self, self.cbAndroidEp),
+		}    
+		local sigs = "(Ljava/lang/String;I)V"
+		local luaj = require "luaj"
+		local class_name = "org/cocos2dx/lua/AppActivity"
+		local ok, ret = luaj.callStaticMethod(class_name, "copyRes", args, sigs)
+		--print('--- copy_files_to_writable_path, ok, ret: ', ok, ret)
+		--if ok then
+		--end
+	else -- elseif platform == cc.PLATFORM_OS_WINDOWS then
+		local files = {}
+		-- self:printSearchPath()
+		local utils = cc.FileUtils:getInstance()
+		local searchPath = utils:getSearchPaths()
+		local path = searchPath[1] .. 'res/patch/'
+		local list = KUtils:dfsFolder(path, 0)
+
+		for i = 1, #list do
+			local fname = list[i]
+			local n = string.find(fname, ".ep")
+			if n+2 == string.len(fname) then
+				local p = path .. fname
+				table.insert(files, { path = p, fname = fname })
+			end
+		end
+		self:unzipEp(files)
+	end
+end
+
+function Version:unzipEp(files)
+	local utils = cc.FileUtils:getInstance()
+	local user = cc.UserDefault:getInstance()
+	local mark = user:getIntegerForKey(Util.KEY_PATCH_INDEX)
+	--print('ep num mark: ', mark)
+	--local tip = 'unzip:\n';
+	local dir_path = Util.getSavePath()
+	for i = 1, #files do
+		local info = files[i]
+		local src_path = info.path
+		local fname = info.fname -- e.g. p1.ep
+		local index = tonumber(string.sub(fname, 2, string.len(fname)-3)) or 0
+		if index > mark then
+			local dst_path = dir_path
+			set_version_tip(string.format("unpack[%s]...", fname))
+			local is_done = KUtils:unzipPatch(src_path, dst_path)
+			if true == is_done then
+				print('unpack ep done : ', dst_path, index, fname)
+				user:setIntegerForKey(Util.KEY_PATCH_INDEX, index)
+				--dst_path = dst_path .. string.sub(fname, 1, string.len(fname)-3)
+				--utils:addSearchPath(dst_path)
+				self:setTip(string.format("unpack[%s] done", fname))
+				--tip = string.format("%sfname[%s][just done]\n", tip, fname)
+			else
+				print('unpack ep fail : ', src_path)
+				self:setTip(string.format("unpack[%s] fail", fname))
+			end
+		else
+			--local dst_path = dir_path;
+			--dst_path = dst_path .. string.sub(fname, 1, string.len(fname)-3)
+			--utils:addSearchPath(dst_path)
+			--tip = string.format("%sfname[%s][already done]\n", tip, fname)
+		end
+	end
+	print('unzip done!!!!')
+	self._progressBar:setVisible(true)
+	self:updateSlist()
+end
+
+function Version:cbAndroidEp()
+	-- Android:
+	-- TODO: ep in asset has copy to writable path, do unzip here, 
+	-- 1. maybe should delete the copy file after unzip
+	-- 2. set mark to remember has copy the ep or not, maybe do some better way
+	local user = cc.UserDefault:getInstance()
+	user:setIntegerForKey(Util.KEY_COPY_ASSETS_INDEX, 1)
+	local files = {}
+	local path = Util.getSavePath .. 'a_local_ep/'
+	local ret = KUtils:createDirByPath(path)
+	if 0 ~= ret then
+		print('BUG cb_android create a_local_ep dir fail')
+	end
+	local list = KUtils:dfsFolder(path, 0)
+	for i = 1, #list do
+		local fname = list[i]
+		--print('fname: ', fname)
+		local n = string.find(fname, ".ep")
+		if n+2 == string.len(fname) then
+			local p = path .. fname
+			table.insert(files, { path = p, fname = fname })
+		end
+	end
+	self:unzipEp(files)
 end
 
 function Version:updateDone()
@@ -381,6 +466,10 @@ function Version:updateDone()
 end
 
 function Version:run()
+	if true == Util.DEBUG_MODE then
+		Util.SHOW_ALL = true
+	end
+
 	local platform = cc.Application:getInstance():getTargetPlatform()
 	cc.FileUtils:getInstance():addSearchPath("src")
 	cc.FileUtils:getInstance():addSearchPath("res")
@@ -396,10 +485,10 @@ function Version:run()
 	cc.FileUtils:getInstance():addSearchPath(res_path)
 
 	local dic = cc.FileUtils:getInstance():getValueMapFromFile("game_config.plist")
-	CPID = dic["CPID"]
-	CHANNEL_VER = dic["CHANNEL_VER"]
+	Info.CPID = dic["CPID"]
+	Info.CHANNEL_VER = dic["CHANNEL_VER"]
 
-	--kdebug("pos[%f][%f]size[%f][%f]",origin.x,origin.y,vsize.width,vsize.height)
+	--Util.log("pos[%f][%f]size[%f][%f]",origin.x,origin.y,vsize.width,vsize.height)
 
 	print('--jit.version: ', jit.version)
 
@@ -407,11 +496,11 @@ function Version:run()
 	--print('------ luajit : ', jit.version)
 	--table.foreach(ffi, print)
 
-	--self:printSearchPath()
+	self:printSearchPath()
 
-	local langType = self:getLang()
+	local langType = Util.getLanguage()
 	local tRetry, tVersion
-	if langType == 1 then -- chinese
+	if langType == cc.LANGUAGE_CHINESE then -- chinese
 		tRetry = '重试'
 		tVersion = '资源版本'
 	else
@@ -423,12 +512,12 @@ function Version:run()
 	local vsize = director:getVisibleSize()
 
 	local layer = cc.Layer:create()
-	local sprite = cc.Sprite:create("background/bg_200.png")
+	local sprite = cc.Sprite:create("bg_200.png")
 	sprite:setAnchorPoint(cc.p(0.5, 0.5))
 	sprite:setPosition(vsize.width/2, vsize.height/2)
 	layer:addChild(sprite)
 
-	sprite = cc.Sprite:create("title/logo_1.png")
+	sprite = cc.Sprite:create("logo_1.png")
 	sprite:setAnchorPoint(0.5, 1)
 	sprite:setPosition(vsize.width/2, vsize.height/2+328)
 	layer:addChild(sprite)
@@ -439,12 +528,12 @@ function Version:run()
 	bar:setPosition(pos)
 	layer:addChild(bar)
 
-	sprite = cc.Sprite:create("bar/bg_207.png")
+	sprite = cc.Sprite:create("bg_207.png")
 	sprite:setAnchorPoint(0.5, 0.5)
 	sprite:setPosition(cc.p(0, 0))
 	bar:addChild(sprite)
 
-	sprite = cc.Sprite:create("bar/bg_208.png")
+	sprite = cc.Sprite:create("bg_208.png")
 	local progress = cc.ProgressTimer:create(sprite)
 	progress:setAnchorPoint(0.5, 0.5)
 	progress:setPosition(cc.p(0, 0))
@@ -455,7 +544,7 @@ function Version:run()
 	progress:setTag(111)
 	bar:addChild(progress)
 
-	sprite = cc.Sprite:create("bar/bg_209.png")
+	sprite = cc.Sprite:create("bg_209.png")
 	sprite:setAnchorPoint(0.5, 0.5)
 	sprite:setPosition(cc.p(0, 0))
 	bar:addChild(sprite)
@@ -483,9 +572,9 @@ function Version:run()
 		local item = args[2]
 		self._tip:setString('重新更新')
 		item:setVisible(false)
-		self:updateSlist(IP_ADDR)
+		self:updateSlist(Info.IP_ADDR)
 	end
-	item = cc.MenuItemImage:create("btn/btn_99.png", "btn/btn_99_s.png")
+	item = cc.MenuItemImage:create("btn_99.png", "btn_99_s.png")
 	item:setAnchorPoint(0.5, 0)
 	item:setPosition(vsize.width/2, 80)
 	item:registerScriptTapHandler(cb_retry)
@@ -520,9 +609,10 @@ function Version:run()
 		else -- windows
 			cc.FileUtils:getInstance():addSearchPath("res/temp", true)
 		end
-		DEBUG_MODE = true
+		Util.DEBUG_MODE = true
 	end
 
+	--self:processData()
 	if true == SKIP_UPDATE then
 		local utils = cc.FileUtils:getInstance()
 		local dic = utils:getValueMapFromFile("game_config.plist")
@@ -530,7 +620,7 @@ function Version:run()
 		local ld = { sid = '1', ip = ip, flag = '1', name = '本机', state = '1' }
 		local list = { ld }
 		self._serverList = list
-		IP_ADDR = ip
+		Info.IP_ADDR = ip
 		local function cb_start()
 			layer:unscheduleUpdate()
 			self:mainStartGame()
@@ -551,7 +641,7 @@ function Version:run()
 	);    
 	listener:registerScriptHandler(
 		function(touch, event)
-			if true == DEBUG_MODE then
+			if true == Util.DEBUG_MODE then
 				return
 			end
 			local location = touch:getLocation()
@@ -560,7 +650,7 @@ function Version:run()
 			end
 			if tap_count < 0 then
 				self:setTip(string.format("====测试模式===="))
-				DEBUG_MODE = true
+				Util.DEBUG_MODE = true
 			end
 		end,  
 		cc.Handler.EVENT_TOUCH_ENDED
@@ -582,153 +672,10 @@ end
 
 function Version:mainStartGame()
 	--self:printSearchPath();
-	require ("game");
 	local user = cc.UserDefault:getInstance();
-	user:setIntegerForKey(KEY_LOGIC_VER, tonumber(LOGIC_VERSION));
-	user:setIntegerForKey(KEY_GAME_VER, tonumber(GAME_VERSION));
-	--start_game();
+	user:setIntegerForKey(Util.KEY_LOGIC_VER, tonumber(Util.LOGIC_VERSION));
+	user:setIntegerForKey(Util.KEY_GAME_VER, tonumber(Util.GAME_VERSION));
+    require("app.scene.SceneLogin").showScene()
 end
-
--- ============================ DATA PROCESS START =====================
---[[
-function delete_download_resource()
-	CLIENT_PATCH = CLIENT_PATCH_CONSTANT;
-	local user = cc.UserDefault:getInstance();
-	user:setIntegerForKey(KEY_PATCH_INDEX, tonumber(CLIENT_PATCH));
-	local path = cc.FileUtils:getInstance():getWritablePath() .. 'res/';
-	local list = KUtils:dfsFolder(path, 0);
-	for i = 1, #list do
-		local fname = list[i];
-		local p = path .. fname;
-		KUtils:deleteDownloadDir(p);
-	end 
-end
-
-function v_unzip_ep(files)
-	local utils = cc.FileUtils:getInstance();
-	local user = cc.UserDefault:getInstance();
-	local mark = user:getIntegerForKey(KEY_PATCH_INDEX);
-	--print('ep num mark: ', mark);
-	--local tip = 'unzip:\n';
-	local dir_path = cc.FileUtils:getInstance():getWritablePath();
-	for i = 1, #files do
-		local info = files[i];
-		local src_path = info.path;
-		local fname = info.fname; -- e.g. p1.ep
-		local index = tonumber(string.sub(fname, 2, string.len(fname)-3)) or 0;
-		if index > mark then
-			local dst_path = dir_path;
-			set_version_tip(string.format("unpack[%s]...", fname));
-			local is_done = KUtils:unzipPatch(src_path, dst_path);
-			if true == is_done then
-				print('unpack ep done : ', dst_path, index, fname);
-				user:setIntegerForKey(KEY_PATCH_INDEX, index);
-				--dst_path = dst_path .. string.sub(fname, 1, string.len(fname)-3);
-				--utils:addSearchPath(dst_path);
-				set_version_tip(string.format("unpack[%s] done", fname));
-				--tip = string.format("%sfname[%s][just done]\n", tip, fname);
-			else
-				print('unpack ep fail : ', src_path);
-				set_version_tip(string.format("unpack[%s] fail", fname));
-			end
-		else
-			--local dst_path = dir_path;
-			--dst_path = dst_path .. string.sub(fname, 1, string.len(fname)-3);
-			--utils:addSearchPath(dst_path);
-			--tip = string.format("%sfname[%s][already done]\n", tip, fname);
-		end
-	end
-	print('unzip done!!!!');
-	--version_tip:setVisible(false);
-	version_bar:setVisible(true);
-	v_update_slist();
-end
-
-function v_cb_android_ep()
-	-- Android:
-	-- TODO: ep in asset has copy to writable path, do unzip here, 
-	-- 1. maybe should delete the copy file after unzip
-	-- 2. set mark to remember has copy the ep or not, maybe do some better way
-	local user = cc.UserDefault:getInstance();
-	user:setIntegerForKey(KEY_COPY_ASSETS_INDEX, 1);
-	local files = {};
-	local path = cc.FileUtils:getInstance():getWritablePath() .. 'a_local_ep/';
-	local ret = KUtils:createDirByPath(path);
-	if 0 ~= ret then
-		print('BUG cb_android create a_local_ep dir fail');
-	end
-	local list = KUtils:dfsFolder(path, 0);
-	for i = 1, #list do
-		local fname = list[i];
-		--print('fname: ', fname);
-		local n = string.find(fname, ".ep");
-		if n+2 == string.len(fname) then
-			local p = path .. fname;
-			table.insert(files, { path = p, fname = fname });
-		end
-	end
-	v_unzip_ep(files);
-end
-
-function v_process_data()
-	-- TODO: handle error case
-	local platform = cc.Application:getInstance():getTargetPlatform();
-	if platform == cc.PLATFORM_OS_IPHONE or platform == cc.PLATFORM_OS_IPAD or platform == cc.PLATFORM_OS_MAC then
-		local files = {};
-		local path = KUtils:getResourcePath() .. '/patch/';
-		local list = KUtils:dfsFolder(path, 0);
-		print('path, #list:', path, #list);
-		for i = 1, #list do
-			local fname = list[i];
-			local n = string.find(fname, ".ep");
-			if n+2 == string.len(fname) then
-				local p = path .. fname;
-				table.insert(files, { path = p, fname = fname });
-			end
-		end
-		v_unzip_ep(files);
-	elseif platform == cc.PLATFORM_OS_ANDROID then
-		local user = cc.UserDefault:getInstance();
-		local mark = user:getIntegerForKey(KEY_COPY_ASSETS_INDEX);
-		if 1 == mark then
-			v_cb_android_ep();
-			return;
-		end
-		local path = cc.FileUtils:getInstance():getWritablePath() .. 'a_local_ep';
-		local ret = KUtils:createDirByPath(path);
-		if 0 ~= ret then
-			print('BUG create a_local_ep dir fail');
-		end
-		local args = { 
-			path, v_cb_android_ep,
-		};    
-		local sigs = "(Ljava/lang/String;I)V";
-		local luaj = require "luaj";
-		local class_name = "org/cocos2dx/lua/AppActivity";
-		local ok, ret = luaj.callStaticMethod(class_name, "copyRes", args, sigs);
-		--print('--- copy_files_to_writable_path, ok, ret: ', ok, ret);
-		--if ok then
-		--end
-	else -- elseif platform == cc.PLATFORM_OS_WINDOWS then
-		local files = {};
-		-- print_search_path();
-		local utils = cc.FileUtils:getInstance();
-		local searchPath = utils:getSearchPaths();
-		local path = searchPath[1] .. 'res/patch/';
-		local list = KUtils:dfsFolder(path, 0);
-
-		for i = 1, #list do
-			local fname = list[i];
-			local n = string.find(fname, ".ep");
-			if n+2 == string.len(fname) then
-				local p = path .. fname;
-				table.insert(files, { path = p, fname = fname });
-			end
-		end
-		v_unzip_ep(files);
-	end
-end
---]]
--- ============================ DATA PROCESS END   =====================
 
 return Version

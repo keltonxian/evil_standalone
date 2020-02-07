@@ -5,7 +5,7 @@ function AppBase:ctor(configs)
     self.configs_ = {
         viewsRoot  = "app.views",
         modelsRoot = "app.models",
-        defaultSceneName = "MainScene",
+        defaultSceneName = "SceneLogin",
     }
 
     for k, v in pairs(configs or {}) do
@@ -38,7 +38,7 @@ end
 
 function AppBase:enterScene(sceneName, transition, time, more)
     local view = self:createView(sceneName)
-    view:showWithScene(transition, time, more)
+    --view:showWithScene(transition, time, more)
     return view
 end
 
